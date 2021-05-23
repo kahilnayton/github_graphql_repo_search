@@ -7,6 +7,18 @@ export const Wrapper = styled.div`
   width: 100%;
 `;
 
+
+export const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 15px;
+
+  @media screen and (min-width: 1100px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+
 export const Card = styled.div`
   text-align: left;
   padding: 10px;
@@ -43,4 +55,19 @@ export const Topics = styled.span`
     font-size: 12px;
     color: ${colors.blue};
   }
+`;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${colors.blue};
+  height: 80px;
+  margin-bottom: 20px;
+`;
+
+export const H1 = styled.h1`
+  font-size: 32px;
+  color: ${(props) => (props.primary ? colors.grey900 : "white")};
+  padding-bottom: 15px;
 `;

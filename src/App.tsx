@@ -1,12 +1,13 @@
 import { useEffect, useState, MouseEvent } from "react";
 import TextField from "@material-ui/core/TextField";
-import { Card, Wrapper, Topics } from "./styles";
+import { Card, Wrapper, Topics, Header, H1, CardsContainer } from "./styles";
 
 import "./App.css";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<String>("");
   const [result, setResult] = useState<any[]>([]);
+  const [selectedRepo, setSelectedRepo] = useState<any[]>({});
 
   const baseUrl = "https://api.github.com/graphql";
 
@@ -51,12 +52,19 @@ export default function App() {
     `,
   };
 
+  const updateselectedRepo = (repo: any) => {
+    setSelectedRepo(repo?.repo);
+  };
+
   const repoList = result?.map((repo: any, i: number) => {
     let topics = repo?.repo.repositoryTopics?.nodes;
     topics = topics.length > 0 ? topics : null;
 
     return (
-      <Card key={i}>
+      <Card
+        key={i}
+        onClick={(e: MouseEvent<HTMLElement>) => updateselectedRepo(repo)}
+      >
         <p>{repo?.repo.name}</p>
         {topics ? (
           <Topics>
@@ -69,13 +77,15 @@ export default function App() {
             <p>No topics on this repo</p>
           </Topics>
         )}
-
       </Card>
     );
   });
 
   return (
     <Wrapper>
+      <Header>
+        <H1>Repository Searcher</H1>
+      </Header>
       <TextField
         onChange={(e: MouseEvent<HTMLElement>) =>
           setSearchQuery((e.target as any).value)
@@ -83,7 +93,10 @@ export default function App() {
         id="standard-basic"
         label="Search"
       />
-      {repoList}
+      <CardsContainer>{repoList}</CardsContainer>
+      {Object.keys(selectedRepo).length > 0 && (
+        <pre>{JSON.stringify(selectedRepo, null, 4)}</pre>
+      )}
     </Wrapper>
   );
 }
