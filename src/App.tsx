@@ -2,13 +2,17 @@ import { useEffect, useState, MouseEvent } from "react";
 import { RepoModal } from "./components/RepoModal";
 import {
   Card,
+  CardsContainer,
   Wrapper,
-  Topics,
   Header,
   H1,
-  CardsContainer,
   StyledTextField,
-  Inner
+  Topics,
+  Text,
+  Inner,
+  InputsContainer,
+  StyledButton,
+  ButtonContainer
 } from "./styles";
 
 import "./App.css";
@@ -17,6 +21,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState<String>("");
   const [result, setResult] = useState<any[]>([]);
   const [selectedRepo, setSelectedRepo] = useState<any[]>({});
+  const [reposPerSearch, setReposPerSearch] = useState<Number>(10);
 
   const baseUrl = "https://api.github.com/graphql";
 
@@ -33,12 +38,12 @@ export default function App() {
     })
       .then((response) => response.json())
       .then((resp) => setResult(resp?.data?.search?.repos));
-  }, [searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchQuery, reposPerSearch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const query_repos = {
     query: `
     query { 
-      search (first: 10, type: REPOSITORY, query: "${searchQuery}") {
+      search (first: ${reposPerSearch}, type: REPOSITORY, query: "${searchQuery}") {
         codeCount
         repos: edges {
           repo: node {
@@ -100,13 +105,45 @@ export default function App() {
         <H1>Repository Searcher</H1>
       </Header>
       <Inner>
-        <StyledTextField
-          onChange={(e: MouseEvent<HTMLElement>) =>
-            setSearchQuery((e.target as any).value)
-          }
-          id="standard-basic"
-          label="Search"
-        />
+      <InputsContainer>
+          <StyledTextField
+            onChange={(e: MouseEvent<HTMLElement>) =>
+              setSearchQuery((e.target as any).value)
+            }
+            id="standard-basic"
+            label="Search"
+          />
+          <ButtonContainer>
+            <StyledButton
+              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(10)}
+              variant="contained"
+              color="secondary"
+            >
+              <Text>10</Text>
+            </StyledButton>
+            <StyledButton
+              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(20)}
+              variant="contained"
+              color="secondary"
+            >
+              <Text>20</Text>
+            </StyledButton>
+            <StyledButton
+              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(30)}
+              variant="contained"
+              color="secondary"
+            >
+              <Text>30</Text>
+            </StyledButton>
+            <StyledButton
+              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(40)}
+              variant="contained"
+              color="secondary"
+            >
+              <Text>40</Text>
+            </StyledButton>
+          </ButtonContainer>
+        </InputsContainer>
         <CardsContainer>{repoList}</CardsContainer>
         {Object.keys(selectedRepo).length > 0 && (
           <RepoModal

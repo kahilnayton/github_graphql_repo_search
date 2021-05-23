@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import { colors } from "./colors";
 
 export const Wrapper = styled.div`
@@ -86,6 +87,7 @@ export const Text = styled.p`
 
 export const StyledTextField = styled(TextField)`
   margin: 10px 20px;
+  padding-right: 20px;
 `;
 
 export const Modal = styled.div`
@@ -150,4 +152,27 @@ export const Inner = styled.div`
   padding-right: 1.8rem;
   height: 100%;
   max-width: 120rem;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+
+  button {
+    margin-right: 10px;
+  }
+  
+`;
+
+export const InputsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 15px;
+
+  @media screen and (min-width: 1100px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  max-width: 20px;
 `;
