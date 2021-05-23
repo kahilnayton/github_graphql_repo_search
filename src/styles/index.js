@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import TextField from "@material-ui/core/TextField";
 import { colors } from "./colors";
 
 export const Wrapper = styled.div`
@@ -17,7 +18,6 @@ export const CardsContainer = styled.div`
     grid-template-columns: repeat(4, 1fr);
   }
 `;
-
 
 export const Card = styled.div`
   text-align: left;
@@ -70,4 +70,74 @@ export const H1 = styled.h1`
   font-size: 32px;
   color: ${(props) => (props.primary ? colors.grey900 : "white")};
   padding-bottom: 15px;
+`;
+
+export const H2 = styled.h1`
+  font-size: 20px;
+  color: ${(props) => (props.primary ? colors.grey900 : "white")};
+  padding-bottom: 15px;
+`;
+
+export const Text = styled.p`
+  font-size: 16px;
+  color: ${(props) => (props.primary ? colors.grey900 : "white")};
+  padding-bottom: 10px;
+`;
+
+export const StyledTextField = styled(TextField)`
+  margin: 10px 20px;
+`;
+
+export const Modal = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  inset: 0;
+  min-height: 60%;
+  min-width: 80%;
+  background: ${colors.red};
+  padding: 20px;
+  text-align: left;
+
+  width: 80vw;
+  height: 80vw;
+  margin: auto;
+
+  a {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    img {
+      height: 20px;
+    }
+  }
+`;
+
+export const CloseButton = styled.button`
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  outline: none;
+
+  span {
+    &::after {
+      content: "";
+      height: 2px;
+      width: 20px;
+      background-color: #fff;
+    }
+  }
+
+  img {
+    height: 30px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

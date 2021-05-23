@@ -1,6 +1,14 @@
 import { useEffect, useState, MouseEvent } from "react";
-import TextField from "@material-ui/core/TextField";
-import { Card, Wrapper, Topics, Header, H1, CardsContainer } from "./styles";
+import { RepoModal } from "./components/RepoModal";
+import {
+  Card,
+  Wrapper,
+  Topics,
+  Header,
+  H1,
+  CardsContainer,
+  StyledTextField,
+} from "./styles";
 
 import "./App.css";
 
@@ -52,7 +60,7 @@ export default function App() {
     `,
   };
 
-  const updateselectedRepo = (repo: any) => {
+  const updateSelectedRepo = (repo: any) => {
     setSelectedRepo(repo?.repo);
   };
 
@@ -63,7 +71,7 @@ export default function App() {
     return (
       <Card
         key={i}
-        onClick={(e: MouseEvent<HTMLElement>) => updateselectedRepo(repo)}
+        onClick={(e: MouseEvent<HTMLElement>) => updateSelectedRepo(repo)}
       >
         <p>{repo?.repo.name}</p>
         {topics ? (
@@ -81,12 +89,16 @@ export default function App() {
     );
   });
 
+  const clearSelection = () => {
+    setSelectedRepo({});
+  };
+
   return (
     <Wrapper>
       <Header>
         <H1>Repository Searcher</H1>
       </Header>
-      <TextField
+      <StyledTextField
         onChange={(e: MouseEvent<HTMLElement>) =>
           setSearchQuery((e.target as any).value)
         }
@@ -95,7 +107,10 @@ export default function App() {
       />
       <CardsContainer>{repoList}</CardsContainer>
       {Object.keys(selectedRepo).length > 0 && (
-        <pre>{JSON.stringify(selectedRepo, null, 4)}</pre>
+        <RepoModal
+          selectedRepo={selectedRepo}
+          clearSelection={clearSelection}
+        />
       )}
     </Wrapper>
   );
