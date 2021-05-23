@@ -1,7 +1,8 @@
 import { useEffect, useState, MouseEvent } from "react";
 import TextField from "@material-ui/core/TextField";
+import { Card, Wrapper, Topics } from "./styles";
 
-import './App.css';
+import "./App.css";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<String>("");
@@ -22,8 +23,7 @@ export default function App() {
     })
       .then((response) => response.json())
       .then((resp) => setResult(resp?.data?.search?.repos));
-    }, [searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
-
+  }, [searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const query_repos = {
     query: `
@@ -50,15 +50,40 @@ export default function App() {
     }
     `,
   };
+
+  const repoList = result?.map((repo: any, i: number) => {
+    let topics = repo?.repo.repositoryTopics?.nodes;
+    topics = topics.length > 0 ? topics : null;
+
+    return (
+      <Card key={i}>
+        <p>{repo?.repo.name}</p>
+        {topics ? (
+          <Topics>
+            {topics?.map((topic: any, i: number) => (
+              <p key={topic.topic.name}>{topic.topic.name}</p>
+            ))}
+          </Topics>
+        ) : (
+          <Topics>
+            <p>No topics on this repo</p>
+          </Topics>
+        )}
+
+      </Card>
+    );
+  });
+
   return (
-    <div className="App">
+    <Wrapper>
       <TextField
-          onChange={(e: MouseEvent<HTMLElement>) => setSearchQuery((e.target as any).value)}
-          id="standard-basic"
-          label="Search"
-        />
-      <pre>{JSON.stringify(result, null, 4)}</pre>
-    </div>
+        onChange={(e: MouseEvent<HTMLElement>) =>
+          setSearchQuery((e.target as any).value)
+        }
+        id="standard-basic"
+        label="Search"
+      />
+      {repoList}
+    </Wrapper>
   );
 }
-

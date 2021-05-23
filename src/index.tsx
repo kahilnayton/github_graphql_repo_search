@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ResetStyles } from "./styles/reset";
 
 ReactDOM.render(
   <React.StrictMode>
+    <ResetStyles />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
