@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import ToggleButton from '@material-ui/lab/ToggleButton';
 import { colors } from "./colors";
 
 export const Wrapper = styled.div`
@@ -81,13 +82,13 @@ export const H2 = styled.h1`
 
 export const Text = styled.p`
   font-size: 16px;
-  color: ${(props) => (props.primary ? colors.grey900 : "white")};
+  color: ${(props) => (props.primary ? colors.grey700 : "white")};
   padding-bottom: 10px;
 `;
 
 export const StyledTextField = styled(TextField)`
   margin: 10px 20px;
-  padding-right: 20px;
+  padding-right: 20px !important;
 `;
 
 export const Modal = styled.div`
@@ -104,7 +105,7 @@ export const Modal = styled.div`
   text-align: left;
 
   width: 80vw;
-  height: 80vw;
+  height: 300px;
   margin: auto;
 
   a {
@@ -154,11 +155,22 @@ export const Inner = styled.div`
   max-width: 120rem;
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled(ToggleButtonGroup)`
   display: flex;
+  position: relative;
+  justify-content: space-between;
 
   button {
     margin-right: 10px;
+    border: none;
+  }
+
+  h1 {
+    position: absolute;
+    font-weight: normal;
+    top: -20px;
+    left: 0;
+    color: ${colors.grey600};
   }
   
 `;
@@ -173,6 +185,6 @@ export const InputsContainer = styled.div`
   }
 `;
 
-export const StyledButton = styled(Button)`
+export const StyledButton = styled(ToggleButton)`
   max-width: 20px;
 `;

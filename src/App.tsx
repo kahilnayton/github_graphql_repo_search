@@ -1,5 +1,6 @@
 import { useEffect, useState, MouseEvent } from "react";
 import { RepoModal } from "./components/RepoModal";
+
 import {
   Card,
   CardsContainer,
@@ -8,11 +9,10 @@ import {
   H1,
   StyledTextField,
   Topics,
-  Text,
   Inner,
   InputsContainer,
   StyledButton,
-  ButtonContainer
+  ButtonContainer,
 } from "./styles";
 
 import "./App.css";
@@ -20,8 +20,12 @@ import "./App.css";
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<String>("");
   const [result, setResult] = useState<any[]>([]);
-  const [selectedRepo, setSelectedRepo] = useState<any[]>({});
+  const [selectedRepo, setSelectedRepo] = useState({});
   const [reposPerSearch, setReposPerSearch] = useState<Number>(10);
+
+  const handleUpdateRenderList = (event, newRender) => {
+    setReposPerSearch(newRender);
+  };
 
   const baseUrl = "https://api.github.com/graphql";
 
@@ -105,42 +109,32 @@ export default function App() {
         <H1>Repository Searcher</H1>
       </Header>
       <Inner>
-      <InputsContainer>
+        <InputsContainer>
           <StyledTextField
             onChange={(e: MouseEvent<HTMLElement>) =>
               setSearchQuery((e.target as any).value)
             }
             id="standard-basic"
-            label="Search"
+            label="Search by repo name"
           />
-          <ButtonContainer>
-            <StyledButton
-              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(10)}
-              variant="contained"
-              color="secondary"
-            >
-              <Text>10</Text>
+          <ButtonContainer
+            value={reposPerSearch}
+            exclusive
+            onChange={handleUpdateRenderList}
+            aria-label="repos per search"
+          >
+            <h1>Limit number of results: {reposPerSearch}</h1>
+            <StyledButton value={10}>
+              <p>10</p>
             </StyledButton>
-            <StyledButton
-              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(20)}
-              variant="contained"
-              color="secondary"
-            >
-              <Text>20</Text>
+            <StyledButton value={20}>
+              <p>20</p>
             </StyledButton>
-            <StyledButton
-              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(30)}
-              variant="contained"
-              color="secondary"
-            >
-              <Text>30</Text>
+            <StyledButton value={30}>
+              <p>30</p>
             </StyledButton>
-            <StyledButton
-              onClick={(e: MouseEvent<HTMLElement>) => setReposPerSearch(40)}
-              variant="contained"
-              color="secondary"
-            >
-              <Text>40</Text>
+            <StyledButton value={40}>
+              <p>40</p>
             </StyledButton>
           </ButtonContainer>
         </InputsContainer>

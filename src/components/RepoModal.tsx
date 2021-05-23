@@ -7,14 +7,12 @@ import { RepoTypes } from "../interfaces/index";
 
 export interface RepoProps {
   selectedRepo: RepoTypes;
-  clearSelection(): void;
+  clearSelection: any;
 }
 
 export function RepoModal({ selectedRepo, clearSelection }: RepoProps | any) {
-  // console.log(selectedRepo);
 
   let timeAgo = moment(selectedRepo.createdAt).fromNow();
-
   let languages = selectedRepo.languages;
   languages = languages?.nodes.length > 0 ? languages.nodes : null;
 
