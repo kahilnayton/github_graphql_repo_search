@@ -12,7 +12,7 @@ export interface RepoProps {
 
 export function RepoModal({ selectedRepo, clearSelection }: RepoProps | any) {
 
-  let timeAgo = moment(selectedRepo.createdAt).fromNow();
+  let timeSinceRepoCreated = moment(selectedRepo.createdAt).fromNow();
   let languages = selectedRepo.languages;
   languages = languages?.nodes.length > 0 ? languages.nodes : null;
 
@@ -33,7 +33,7 @@ export function RepoModal({ selectedRepo, clearSelection }: RepoProps | any) {
       <Text>Issues: {selectedRepo.issues?.totalCount} 🤞</Text>
       <Text>Forks: {selectedRepo.forkCount} 🍴</Text>
 
-      <Text>Created: {timeAgo} 🕔</Text>
+      <Text>Created: {timeSinceRepoCreated} 🕔</Text>
 
       <a target="_blank" rel="noreferrer" href={selectedRepo.url}>
         Visit:

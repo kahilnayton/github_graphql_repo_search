@@ -167,6 +167,7 @@ export const ButtonContainer = styled(ToggleButtonGroup)`
 
   h1 {
     position: absolute;
+    white-space: nowrap;
     font-weight: normal;
     top: -20px;
     left: 0;

@@ -15,7 +15,6 @@ import {
   ButtonContainer,
 } from "./styles";
 
-import "./App.css";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState<String>("");
