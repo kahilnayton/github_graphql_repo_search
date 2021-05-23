@@ -8,6 +8,7 @@ import {
   H1,
   CardsContainer,
   StyledTextField,
+  Inner
 } from "./styles";
 
 import "./App.css";
@@ -98,20 +99,22 @@ export default function App() {
       <Header>
         <H1>Repository Searcher</H1>
       </Header>
-      <StyledTextField
-        onChange={(e: MouseEvent<HTMLElement>) =>
-          setSearchQuery((e.target as any).value)
-        }
-        id="standard-basic"
-        label="Search"
-      />
-      <CardsContainer>{repoList}</CardsContainer>
-      {Object.keys(selectedRepo).length > 0 && (
-        <RepoModal
-          selectedRepo={selectedRepo}
-          clearSelection={clearSelection}
+      <Inner>
+        <StyledTextField
+          onChange={(e: MouseEvent<HTMLElement>) =>
+            setSearchQuery((e.target as any).value)
+          }
+          id="standard-basic"
+          label="Search"
         />
-      )}
+        <CardsContainer>{repoList}</CardsContainer>
+        {Object.keys(selectedRepo).length > 0 && (
+          <RepoModal
+            selectedRepo={selectedRepo}
+            clearSelection={clearSelection}
+          />
+        )}
+      </Inner>
     </Wrapper>
   );
 }

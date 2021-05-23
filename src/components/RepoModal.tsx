@@ -1,10 +1,19 @@
 import { Fragment } from "react";
 import { Modal, H1, H2, Text, CloseButton } from "../styles/index";
 import GTLogo from "../github.png";
+import { GrClose } from "react-icons/gr";
+import moment from "moment";
+import { RepoTypes } from "../interfaces/index";
 
+export interface RepoProps {
+  selectedRepo: RepoTypes;
+  clearSelection(): void;
+}
 
-export function RepoModal({ selectedRepo, clearSelection }: any) {
-  console.log(selectedRepo);
+export function RepoModal({ selectedRepo, clearSelection }: RepoProps | any) {
+  // console.log(selectedRepo);
+
+  let timeAgo = moment(selectedRepo.createdAt).fromNow();
 
   let languages = selectedRepo.languages;
   languages = languages?.nodes.length > 0 ? languages.nodes : null;
@@ -26,14 +35,15 @@ export function RepoModal({ selectedRepo, clearSelection }: any) {
       <Text>Issues: {selectedRepo.issues?.totalCount} 🤞</Text>
       <Text>Forks: {selectedRepo.forkCount} 🍴</Text>
 
+      <Text>Created: {timeAgo} 🕔</Text>
 
-      <a target="_blank" href={selectedRepo.url}>
+      <a target="_blank" rel="noreferrer" href={selectedRepo.url}>
         Visit:
         <img src={GTLogo} alt="Git hub logo" />
       </a>
 
       <CloseButton onClick={clearSelection}>
-        close
+        <GrClose />
       </CloseButton>
     </Modal>
   );

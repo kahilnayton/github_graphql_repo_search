@@ -141,3 +141,13 @@ export const CloseButton = styled.button`
     cursor: pointer;
   }
 `;
+
+export const Inner = styled.div`
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 1.8rem;
+  padding-right: 1.8rem;
+  height: 100%;
+  max-width: 120rem;
+`;
